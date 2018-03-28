@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.admin.bus_stop"
+    tools:showIn="@layout/activity_bus_stop">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+
+    <RelativeLayout
+        android:id="@+id/search_text_box"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/search_bar"
+        android:elevation="10dp">
+
+        <ImageView
+            android:id="@+id/magnify"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/magnify" />
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/magnify"
+            android:textSize="15dp"
+            android:textColor="#000"
+            android:id="@+id/input_search"
+            android:hint="Enter Address"
+            android:background="@null"
+            android:imeOptions="actionSearch"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/add_bus_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignEnd="@+id/search_text_box"
+        android:layout_below="@+id/search_text_box"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/ic_add_circle_black_24dp" />
+
+    <ImageView
+        android:id="@+id/finish"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/add_bus_icon"
+        android:layout_below="@+id/add_bus_icon"
+        android:layout_marginTop="32dp"
+        app:srcCompat="@drawable/done_admin" />
+
+</RelativeLayout>
