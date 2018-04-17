@@ -28,6 +28,8 @@ public class stu_reg extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseReference databaseReference;
 
+    private email_model mEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class stu_reg extends AppCompatActivity implements View.OnClickListener {
 
         mAuth = FirebaseAuth.getInstance();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Client");
+       // databaseReference = FirebaseDatabase.getInstance().getReference("Credential");
 
         findViewById(R.id.register_btn).setOnClickListener(this);
 
@@ -114,6 +116,13 @@ public class stu_reg extends AppCompatActivity implements View.OnClickListener {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);    //clear all the previous thing if user click back button then come to login screan which is dont want by us
                     startActivity(intent);
 
+                    //saveEmail();
+
+                 //   String emailId1=stu_email.getText().toString().trim();
+
+                   // databaseReference.child(emailId1).setValue("uh");
+
+
                 }
                 else
                 {
@@ -133,6 +142,19 @@ public class stu_reg extends AppCompatActivity implements View.OnClickListener {
 
 
 
+    }
+
+    private void saveEmail() {
+
+        databaseReference= FirebaseDatabase.getInstance().getReference("Client_ID");
+        String email=stu_email.getText().toString();
+        String ps=stu_paswrd.getText().toString();
+
+        mEmail= new email_model();
+
+        mEmail.setEmail(email);
+
+        databaseReference.setValue(mEmail);
     }
 
     @Override

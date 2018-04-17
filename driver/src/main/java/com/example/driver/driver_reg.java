@@ -15,10 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class driver_reg extends AppCompatActivity implements View.OnClickListener {
 
-    EditText busNo, driverName;
-    String bno;
-    String dname;
-    String bstatus;
+    EditText busNo, driverName,phoneno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +24,7 @@ public class driver_reg extends AppCompatActivity implements View.OnClickListene
 
         busNo = findViewById(R.id.bus_no);
         driverName = findViewById(R.id.driver_name);
+       // phoneno=findViewById(R.id.driver_phone_no);
 
         findViewById(R.id.moveToLogin).setOnClickListener(this);
         findViewById(R.id.proceed).setOnClickListener(this);
@@ -54,9 +52,12 @@ public class driver_reg extends AppCompatActivity implements View.OnClickListene
                         String dname = dataSnapshot.child("driverName").getValue(String.class);
                         String status = dataSnapshot.child("status").getValue(String.class);
 
-                        if (bno .endsWith( busno) && dname .equals( drivername)) {
+                        if (bno .equals( busno) && dname .equals( drivername)) {
                             if (status .equals( "Not Activated")) {
                                 Toast.makeText(driver_reg.this, "Driver Registration Complete", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(driver_reg.this,driver_cred_reg.class));
+
+
                             } else {
                                 Toast.makeText(driver_reg.this, "Bus Already Regierd", Toast.LENGTH_SHORT).show();
                             }

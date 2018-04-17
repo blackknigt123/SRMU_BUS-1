@@ -17,4 +17,5 @@
     <string name="title_activity_stop_location">stop_location</string>
     <string name="title_activity_bus_stop">bus_stop</string>
     <string name="title_activity_admin_das">admin_das</string>
+    <string name="title_activity_direction">Map</string>
 </resources>

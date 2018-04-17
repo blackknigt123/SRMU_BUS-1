@@ -59,7 +59,10 @@
 
         <activity
             android:name=".showOnMap"
-            android:label="@string/title_activity_show_on_map"></activity>
+            android:label="@string/title_activity_show_on_map" />
+        <activity
+            android:name=".direction"
+            android:label="@string/title_activity_direction"></activity>
     </application>
 
 </manifest>
