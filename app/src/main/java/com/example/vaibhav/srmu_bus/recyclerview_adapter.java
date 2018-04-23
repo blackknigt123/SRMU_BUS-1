@@ -47,7 +47,7 @@ public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adap
                 Toast.makeText(context, "You clicked", Toast.LENGTH_SHORT).show();
 
 
-                Intent intentExtra = new Intent(context,direction.class);
+                Intent intentExtra = new Intent(context,duration.class);
                 intentExtra.putExtra("busNo",items.getBus_no());
                 context.startActivity(intentExtra);
 

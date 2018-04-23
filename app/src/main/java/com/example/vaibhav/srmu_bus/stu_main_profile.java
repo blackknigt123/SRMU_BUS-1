@@ -88,9 +88,6 @@ public class stu_main_profile extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -123,10 +120,9 @@ public class stu_main_profile extends AppCompatActivity
         } else if (id == R.id.menu4) {
             fragment = new menu4();
 
-        } else if (id == R.id.nav_share) {
+            }
 
-
-        } else if (id == R.id.nav_feedback) {
+            else if (id == R.id.nav_feedback) {
            fragment = new feedback();
 
         }

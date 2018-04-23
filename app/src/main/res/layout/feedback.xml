@@ -39,31 +39,36 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/name"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="51dp"
         android:background="@drawable/stroke"
         android:ems="10"
         android:inputType="textPersonName"
+        android:padding="5dp"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feedback" />
 
-    <EditText
+    <TextView
         android:id="@+id/email"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
         android:layout_alignStart="@+id/name"
         android:layout_below="@+id/feedback"
         android:layout_marginTop="52dp"
         android:background="@drawable/stroke"
         android:ems="10"
         android:inputType="textPersonName"
+        android:padding="5dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -71,7 +76,7 @@
 
     <EditText
         android:id="@+id/feedback_text"
-        android:layout_width="300dp"
+        android:layout_width="342dp"
         android:layout_height="104dp"
 
         android:layout_below="@+id/name"
@@ -91,5 +96,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
         app:layout_constraintVertical_bias="0.321" />
+
 
 </RelativeLayout>

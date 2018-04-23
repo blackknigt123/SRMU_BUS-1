@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class GetDirectionsData extends AsyncTask<Object,String,String>{
 
@@ -37,9 +38,12 @@ public class GetDirectionsData extends AsyncTask<Object,String,String>{
 
     @Override
     protected void onPostExecute(String s) {
+        HashMap<String,String>directionList=null;
+        DataParser parser = new DataParser();
+
 
         String[] directionsList;
-        DataParser parser = new DataParser();
+
         directionsList = parser.parseDirections(s);
         displayDirection(directionsList);
 
@@ -52,7 +56,7 @@ public class GetDirectionsData extends AsyncTask<Object,String,String>{
         for(int i = 0;i<count;i++)
         {
             PolylineOptions options = new PolylineOptions();
-            options.color(Color.RED);
+            options.color(Color.BLACK);
             options.width(10);
             options.addAll(PolyUtil.decode(directionsList[i]));
 

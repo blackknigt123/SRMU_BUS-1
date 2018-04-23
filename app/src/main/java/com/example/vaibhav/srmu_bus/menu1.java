@@ -47,8 +47,9 @@ public class menu1 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
         loadUserInformation();
+
+
 
     }
 
@@ -57,6 +58,7 @@ public class menu1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getActivity().setTitle("Menu1");
+
 
         profilePic=getActivity().findViewById(R.id.profile_pic);
         name=getActivity().findViewById(R.id.stu_name);
@@ -77,25 +79,6 @@ public class menu1 extends Fragment {
     private void loadUserInformation() {
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-
-
-            if (user.getPhotoUrl() != null) {
-
-                Glide.with(this)
-                        .load(user.getPhotoUrl().toString())
-                        .into(profilePic);
-
-            }
-
-            if (user.getEmail() != null) {
-                email.setText(user.getEmail());
-            }
-
-
-
-        }
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Client");
 
@@ -118,8 +101,26 @@ public class menu1 extends Fragment {
             }
         });
 
+        if (user != null) {
 
 
-    }
+            if (user.getPhotoUrl() != null) {
+
+                Glide.with(this)
+                        .load(user.getPhotoUrl().toString())
+                        .into(profilePic);
+
+            }
+
+            if (user.getEmail() != null) {
+                email.setText(user.getEmail());
+            }
+
+
+
+        }
+
+
+        }
 
 }

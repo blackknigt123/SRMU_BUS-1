@@ -77,6 +77,8 @@ public class bus_stop extends AppCompatActivity implements OnMapReadyCallback,
             }
             nMap.setMyLocationEnabled(true);
             nMap.getUiSettings().setMyLocationButtonEnabled(false);
+            nMap.getUiSettings().setZoomGesturesEnabled(true);
+            nMap.getUiSettings().setZoomControlsEnabled(true);
             init();
         }
 
@@ -122,6 +124,7 @@ public class bus_stop extends AppCompatActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_stop);
         mSearchText = (AutoCompleteTextView) findViewById(R.id.input_search);
+
 
 
         if (isServiceesOK()) {
@@ -294,6 +297,7 @@ public class bus_stop extends AppCompatActivity implements OnMapReadyCallback,
 
         MarkerOptions options = new MarkerOptions()
                 .position(latLng);
+        options.draggable(true);
         nMap.addMarker(options);
         hideSoftKeyboard();
     }
