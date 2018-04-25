@@ -1,13 +1,18 @@
 package com.example.vaibhav.srmu_bus;
 
+
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,9 +22,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,12 +35,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
 public class stu_main_profile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FirebaseAuth mAuth;
     ImageView profile_pic;
     TextView stuname,email;
+    public ListView noticeList;
+
+    ArrayList notices = new ArrayList<String>();
+    ArrayList noticeLinks = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +62,6 @@ public class stu_main_profile extends AppCompatActivity
         setContentView(R.layout.activity_stu_main_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,6 +79,13 @@ public class stu_main_profile extends AppCompatActivity
         email=headerView.findViewById(R.id.email);
 
         loadUserInformation();
+
+        noticeList = (ListView)findViewById(R.id.noticeList);
+
+        // Notice Board
+        RetrieveNoticesTask task = new RetrieveNoticesTask();
+        task.execute();
+        //task.onPostExecute();
     }
 
     @Override
@@ -191,5 +216,90 @@ public class stu_main_profile extends AppCompatActivity
         }
     }
 
+    class RetrieveNoticesTask extends AsyncTask<Void, Void, ArrayList<String>> {
 
+        private Exception exception;
+       // String htmlContent = null;
+
+        protected ArrayList<String> doInBackground(Void... args) {
+            try {
+                Document page = Jsoup.parse(new URL("https://srmu.ac.in/"), 5000);
+
+                Elements elements = page.select("#masonry > div:nth-child(1) > div");
+                Element element = elements.get(0);
+
+                ArrayList notices = new ArrayList<String>();
+
+                Elements items = element.select(".dez-post-header a");
+
+                for(Element item : items)
+                {
+                    String link = item.attr("href");
+
+                    if(link == null)
+                        noticeLinks.add("");
+                    else
+                        noticeLinks.add(link);
+
+                    notices.add(item.text());
+                }
+
+                return notices;
+                //TextView box = (TextView)findViewById(R.id.jsoupTextView);
+
+               // htmlContent = page.text();
+
+               // return page.text();
+
+            } catch(MalformedURLException e) {
+                this.exception = e;
+            }
+            catch(IOException e) {
+                this.exception = e;
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(ArrayList<String> result) {
+            // TODO: check this.exception
+            // TODO: do something with the feed
+            //noticesBox.setText(result);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(stu_main_profile.this,
+                    android.R.layout.simple_list_item_1,
+                    result
+            );
+
+            noticeList.setAdapter(adapter);
+            noticeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    if(noticeLinks.get(i).toString().length() == 0)
+                    {
+                        return;
+                    }
+
+                    Uri uri = Uri.parse("https://srmu.ac.in/" + noticeLinks.get(i).toString());
+                    Log.e("item clicked", i + " was clicked " + uri);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                    intent.setDataAndType(uri,"application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                    Intent chooser = Intent.createChooser(intent, "Open File");
+                    try {
+                        // Launch chooser
+                        startActivity(chooser);
+                    } catch (ActivityNotFoundException e) {
+                        // No PDF Reader found
+                        startActivity(intent);
+                    }
+                }
+            });
+
+            //Log.e("async_task", htmlContent);
+        }
+    }
 }

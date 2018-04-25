@@ -65,7 +65,8 @@
             android:label="@string/title_activity_direction" />
         <activity
             android:name=".duration"
-            android:label="@string/title_activity_duration"></activity>
+            android:label="@string/title_activity_duration" />
+        <activity android:name=".way_point_list"></activity>
     </application>
 
 </manifest>

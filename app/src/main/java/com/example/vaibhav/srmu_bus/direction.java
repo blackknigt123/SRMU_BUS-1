@@ -110,7 +110,7 @@ public class direction extends FragmentActivity implements OnMapReadyCallback,Go
         markerOptions.position(latLng_end);
         markerOptions.title("Destination");
         markerOptions.icon(BitmapDescriptorFactory
-                .fromResource(R.drawable.end));
+                .fromResource(R.drawable.end1));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng_end));
@@ -172,7 +172,7 @@ public class direction extends FragmentActivity implements OnMapReadyCallback,Go
                     markerOptions.position(latLng_way);
                     markerOptions.title(stop_name[i]);
                     markerOptions.icon(BitmapDescriptorFactory
-                            .fromResource(R.drawable.way));
+                            .fromResource(R.drawable.way1));
                     mCurrLocationMarker = mMap.addMarker(markerOptions);
 
 
@@ -205,7 +205,7 @@ public class direction extends FragmentActivity implements OnMapReadyCallback,Go
                 markerOptions.position(latLng);
                 markerOptions.title("Origin Point");
                 markerOptions.icon(BitmapDescriptorFactory
-                        .fromResource(R.drawable.orig));
+                        .fromResource(R.drawable.orig1));
                 mCurrLocationMarker = mMap.addMarker(markerOptions);
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));

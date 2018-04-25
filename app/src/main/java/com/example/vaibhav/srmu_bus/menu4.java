@@ -27,7 +27,7 @@ import java.util.List;
 public class menu4 extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private List<recyclerview_model> items;
+    private List<root_model> items;
 
     DatabaseReference databaseReference;
     private int count_child;
@@ -77,17 +77,12 @@ public class menu4 extends Fragment {
 
 
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                    bus_no = snap.getKey();
-                    recyclerview_model model = new recyclerview_model(
-                            (snap.getKey()),
-                            "startpoint",
-                            "current stop",
-                            "nextstop",
-                            12);
+                    bus_no= snap.getKey();
+                    root_model model = new root_model(snap.getKey(),"Bus No");
                     items.add(model);
 
                 }
-                adapter = (RecyclerView.Adapter) new recyclerview_adapter(getActivity(), items);
+                adapter = (RecyclerView.Adapter) new root_adapter(getActivity(),items);
                 recyclerView.setAdapter(adapter);
 
             }

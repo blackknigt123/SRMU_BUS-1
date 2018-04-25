@@ -63,6 +63,7 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
     private String[] stop_name;
     DatabaseReference databaseReference;
     private String busNo;
+    private LatLng[] wayPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +184,7 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
                 way_lat = new double[c];
                 way_lon = new double[c];
                 stop_name = new String[c];
+                wayPoint = new LatLng[c];
 
 
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
@@ -200,6 +202,8 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
                 for (int i = 1; i <= c - 2; i++) {
 
                     latLng_way = new LatLng(way_lat[i],way_lon[i]);
+                    wayPoint[i]=latLng_way;
+                    Log.e("way pint for leng", String.valueOf(wayPoint[i]));
 
                     markerOptions.position(latLng_way);
                     markerOptions.title(stop_name[i]);
@@ -223,7 +227,7 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
                 String url;
 
                 //dataTransfer = new Object[3];
-                url = getDirectionsUrl(position,way_point);
+                url = getDirectionsUrl(position,way_point,wayPoint);
                 GetDurationsData getDurationData = new GetDurationsData();
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
@@ -253,17 +257,18 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
         });
         return position;
     }
-    private String getDirectionsUrl(double[] liveposition,StringBuilder way_point) {
+    private String getDirectionsUrl(double[] liveposition, StringBuilder way_point, LatLng[] wayPoint) {
 
 
         Log.e("zxcvbnm", String.valueOf(way_point));
+        Log.e("way_point length", wayPoint[2].toString());
 
 
         googleDirectionsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
         Log.e("data", liveposition[0] + " " + liveposition[1]);
         googleDirectionsUrl.append("origin=" + latitude + "," + longitude);
         googleDirectionsUrl.append("&destination=" + end_latitude + "," + end_longitude+"&transit_mode=bus&transit_mode=bus"+"&waypoints=");
-       googleDirectionsUrl.append(way_point);
+        googleDirectionsUrl.append(way_point);
         googleDirectionsUrl.append("&key=" + "AIzaSyC3WEXxdVvh9GQAtdSxPSlgTCS0ryhL5MQ");
 
 

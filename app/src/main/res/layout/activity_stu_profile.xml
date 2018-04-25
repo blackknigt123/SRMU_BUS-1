@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="217dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -49,12 +49,13 @@
 
         <TextView
             android:id="@+id/textView7"
-            android:layout_width="288dp"
-            android:layout_height="39dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
             android:layout_centerHorizontal="true"
             android:padding="10dp"
             android:text="Tap on camera to choose profile photo"
+            android:textAlignment="center"
             android:textColor="@android:color/background_light"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -107,8 +108,9 @@
         app:layout_constraintVertical_bias="0.955" />
 
     <RelativeLayout
-        android:layout_width="396dp"
-        android:layout_height="294dp"
+        android:id="@+id/relativeLayout7"
+        android:layout_width="0dp"
+        android:layout_height="320dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -122,8 +124,8 @@
 
         <EditText
             android:id="@+id/stu_email"
-            android:layout_width="342dp"
-            android:layout_height="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@+id/stu_phoneno"
             android:layout_below="@+id/stu_name"
             android:layout_marginTop="22dp"
@@ -143,8 +145,8 @@
 
         <EditText
             android:id="@+id/stu_name"
-            android:layout_width="342dp"
-            android:layout_height="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="21dp"
@@ -164,8 +166,8 @@
 
         <EditText
             android:id="@+id/stu_rollno"
-            android:layout_width="342dp"
-            android:layout_height="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@+id/stu_phoneno"
             android:layout_below="@+id/stu_phoneno"
             android:layout_marginTop="30dp"
@@ -185,8 +187,8 @@
 
         <EditText
             android:id="@+id/stu_phoneno"
-            android:layout_width="342dp"
-            android:layout_height="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/stu_email"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="26dp"
@@ -205,12 +207,10 @@
 
         <Button
             android:id="@+id/stu_profile_save_btn"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/stu_rollno"
-            android:layout_below="@+id/stu_rollno"
-            android:layout_marginStart="86dp"
-            android:layout_marginTop="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/button_log_signup"
             android:elevation="2dp"
             android:text="Save"

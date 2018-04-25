@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="154dp"
         android:layout_margin="10dp"
         android:layout_marginStart="24dp"
-        android:alpha=".5"
+        app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.257"
+        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8"
-        app:cardCornerRadius="15dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -46,8 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="41dp"
+                android:layout_alignTop="@+id/startpoint_details"
+                android:layout_marginStart="121dp"
                 android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end"
                 android:padding="5dp"
                 android:text="Start Point "
@@ -56,87 +54,28 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/Current_loc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end"
-                android:padding="5dp"
-                android:text="Current Location"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/next_stop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/Current_loc"
-                android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end"
-                android:padding="5dp"
-                android:text="Next Stop"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/nextstop_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/start_pt"
-                android:layout_marginBottom="11dp"
-                android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end"
-                android:padding="5dp"
-                android:text="NextStopTime "
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/startpoint_details"
-                android:layout_width="231dp"
+                android:layout_width="163dp"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/current_details"
-                android:layout_alignTop="@+id/start_pt"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="51dp"
                 android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end"
                 android:padding="5dp"
                 android:text="TextView"
                 android:textAlignment="viewStart"
                 android:textColor="@android:color/holo_blue_light" />
 
-            <TextView
-                android:id="@+id/current_details"
-                android:layout_width="231dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="101dp"
+                android:layout_height="119dp"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end"
-                android:padding="5dp"
-                android:text="TextView"
-                android:textColor="@android:color/holo_blue_light" />
+                android:layout_marginStart="13dp"
+                app:srcCompat="@drawable/bus_info" />
 
-            <TextView
-                android:id="@+id/nextstop_details"
-                android:layout_width="231dp"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/startpoint_details"
-                android:layout_alignTop="@+id/next_stop"
-                android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end"
-                android:padding="5dp"
-                android:text="TextView"
-                android:textColor="@android:color/holo_blue_light" />
-
-            <TextView
-                android:id="@+id/nextstoptime_detail"
-                android:layout_width="231dp"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/startpoint_details"
-                android:layout_alignTop="@+id/nextstop_time"
-                android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end"
-                android:padding="5dp"
-                android:text="TextView"
-                android:textColor="@android:color/holo_blue_light" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

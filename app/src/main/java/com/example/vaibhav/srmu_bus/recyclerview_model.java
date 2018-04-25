@@ -5,24 +5,49 @@ import android.os.Parcelable;
 
 public class recyclerview_model implements Parcelable {
 
-    public String bus_no,startpoint_details,current_details,nextstop_details;
-    public int nextstoptime_detail;
+    public String bus_no,startpoint_details;
+    public int imageView;
 
 
-    public recyclerview_model(String bus_no, String startpoint_details, String current_details, String nextstop_details, int nextstoptime_detail) {
+    public String getBus_no() {
+        return bus_no;
+    }
+
+    public String getStartpoint_details() {
+        return startpoint_details;
+    }
+
+    public int getImageView() {
+        return imageView;
+    }
+
+    public void setBus_no(String bus_no) {
         this.bus_no = bus_no;
+    }
+
+    public void setStartpoint_details(String startpoint_details) {
         this.startpoint_details = startpoint_details;
-        this.current_details = current_details;
-        this.nextstop_details = nextstop_details;
-        this.nextstoptime_detail = nextstoptime_detail;
+    }
+
+    public void setImageView(int imageView) {
+        this.imageView = imageView;
+    }
+
+    public static Creator<recyclerview_model> getCREATOR() {
+        return CREATOR;
     }
 
     protected recyclerview_model(Parcel in) {
         bus_no = in.readString();
+
         startpoint_details = in.readString();
-        current_details = in.readString();
-        nextstop_details = in.readString();
-        nextstoptime_detail = in.readInt();
+        imageView = in.readInt();
+    }
+
+    public recyclerview_model(String bus_no, String startpoint_details, int imageView) {
+        this.bus_no = bus_no;
+        this.startpoint_details = startpoint_details;
+        this.imageView = imageView;
     }
 
     public static final Creator<recyclerview_model> CREATOR = new Creator<recyclerview_model>() {
@@ -37,26 +62,6 @@ public class recyclerview_model implements Parcelable {
         }
     };
 
-    public String getBus_no() {
-        return bus_no;
-    }
-
-    public String getStartpoint_details() {
-        return startpoint_details;
-    }
-
-    public String getCurrent_details() {
-        return current_details;
-    }
-
-    public String getNextstop_details() {
-        return nextstop_details;
-    }
-
-    public int getNextstoptime_detail() {
-        return nextstoptime_detail;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -66,8 +71,6 @@ public class recyclerview_model implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(bus_no);
         parcel.writeString(startpoint_details);
-        parcel.writeString(current_details);
-        parcel.writeString(nextstop_details);
-        parcel.writeInt(nextstoptime_detail);
+        parcel.writeInt(imageView);
     }
 }

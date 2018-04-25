@@ -84,9 +84,7 @@ public class menu3 extends Fragment {
                         recyclerview_model model = new recyclerview_model(
                                  (snap.getKey()),
                                 "startpoint",
-                                "current stop",
-                                "nextstop",
-                                12);
+                                 R.drawable.bus_info);
                         items.add(model);
 
                     }
