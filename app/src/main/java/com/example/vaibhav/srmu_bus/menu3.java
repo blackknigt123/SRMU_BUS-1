@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +40,7 @@ public class menu3 extends Fragment {
     private String bus_no;
     private double latitude;
     private Double longitude;
+    Animation animfadein;
 
     @Nullable
     @Override
@@ -77,6 +80,8 @@ public class menu3 extends Fragment {
                     recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+                animfadein= AnimationUtils.loadAnimation(getActivity(),R.anim.bounce);
+                recyclerView.setAnimation(animfadein);
 
 
                     for (DataSnapshot snap:dataSnapshot.getChildren()) {

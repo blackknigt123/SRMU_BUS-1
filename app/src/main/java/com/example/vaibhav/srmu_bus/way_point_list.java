@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class way_point_list extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -23,15 +26,21 @@ public class way_point_list extends AppCompatActivity {
     private String busNo;
     DatabaseReference databaseReference;
     private int c;
+    Animation animfadein;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_way_point_list);
+
+        animfadein= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadein);
+
         items = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.rv1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        recyclerView.startAnimation(animfadein);
 
         busNo = getIntent().getStringExtra("busNo");
 
