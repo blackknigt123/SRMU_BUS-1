@@ -45,7 +45,7 @@ public class waylist_adapter extends RecyclerView.Adapter<waylist_adapter.ViewHo
             @Override
             public void onClick(View view) {
                 Intent intentExtra = new Intent(context,duration.class);
-               // intentExtra.putExtra("busNo",items.getBus_no());
+              //  intentExtra.putExtra("busNo",12);
                 context.startActivity(intentExtra);
             }
         });

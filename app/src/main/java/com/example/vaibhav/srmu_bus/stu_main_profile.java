@@ -55,6 +55,7 @@ public class stu_main_profile extends AppCompatActivity
 
     ArrayList notices = new ArrayList<String>();
     ArrayList noticeLinks = new ArrayList<String>();
+    private Object Window;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class stu_main_profile extends AppCompatActivity
         RetrieveNoticesTask task = new RetrieveNoticesTask();
         task.execute();
         //task.onPostExecute();
+
     }
 
     @Override
