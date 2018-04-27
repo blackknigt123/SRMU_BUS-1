@@ -24,7 +24,7 @@ public class way_point_list extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<waylist_model> items;
-    private String busNo;
+    private String busNo,stopNo;
     DatabaseReference databaseReference;
     private int c;
     TextView b_no;
@@ -39,6 +39,8 @@ public class way_point_list extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
         busNo = getIntent().getStringExtra("busNo");
+        stopNo=getIntent().getStringExtra("busStop");
+
         b_no=(TextView) findViewById(R.id.bus_no);
         b_no.setText(busNo);
 
@@ -73,7 +75,7 @@ public class way_point_list extends AppCompatActivity {
                 for (int i=0;i<c;i++)
                 {
                     String name= (String) dataSnapshot.child(String.valueOf(i)).child("name").getValue();
-                    waylist_model model= new waylist_model(name,(i+1));
+                    waylist_model model= new waylist_model(name,String.valueOf(i+1),busNo);
 
                     items.add(model);
                 }

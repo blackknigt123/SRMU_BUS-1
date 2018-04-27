@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Vaibhav on 1/31/2018.
@@ -36,6 +38,8 @@ public class menu4 extends Fragment {
     private String bus_no;
     private double latitude;
     private Double longitude;
+    public ProgressBar pb;
+    private RecyclerView rv;
 
 
     @Nullable
@@ -49,11 +53,20 @@ public class menu4 extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Bus Route");
 
-        recyleview();
+
+
+
+
+
 //        fetching_lat_lan_data();
 
-        getActivity().setTitle("Bus Route");
+
+
+
+
+
 
         //  Intent intentExtra = new Intent(getContext(),direction.class);
         //  intentExtra.putExtra("lat",latitude);
@@ -63,7 +76,21 @@ public class menu4 extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        rv= getActivity().findViewById(R.id.rv);
+        pb=getActivity().findViewById(R.id.pb);
+
+        rv.setVisibility(View.GONE);
+        pb.setVisibility(View.VISIBLE);
+        recyleview();
+    }
+
     private void recyleview() {
+
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference("Bus Details");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -74,6 +101,9 @@ public class menu4 extends Fragment {
                 recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+
+
+
 
 
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
@@ -92,6 +122,8 @@ public class menu4 extends Fragment {
 
             }
         });
+        rv.setVisibility(View.VISIBLE);
+        pb.setVisibility(View.GONE);
     }
 
     private void fetching_lat_lan_data() {
