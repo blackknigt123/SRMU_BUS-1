@@ -5,19 +5,24 @@ import android.os.Parcelable;
 
 public class waylist_model implements Parcelable {
     public String bus_stop;
-    public int stop_no;
+    public String stop_no;
+    public String busNumber;
 
-    public waylist_model(String bus_stop, int stop_no) {
+    public waylist_model(String bus_stop, String stop_no, String busNumber) {
         this.bus_stop = bus_stop;
         this.stop_no = stop_no;
+        this.busNumber=busNumber;
     }
 
     public void setBus_stop(String bus_stop) {
         this.bus_stop = bus_stop;
     }
 
-    public void setStop_no(int stop_no) {
+    public void setStop_no(String stop_no) {
         this.stop_no = stop_no;
+    }
+    public void setBusNumber(String busNumber){
+        this.busNumber=busNumber;
     }
 
     public String getBus_stop() {
@@ -25,8 +30,12 @@ public class waylist_model implements Parcelable {
         return bus_stop;
     }
 
-    public int getStop_no() {
+    public String getStop_no() {
         return stop_no;
+    }
+    public String getBusNumber()
+    {
+        return busNumber;
     }
 
     public static Creator<waylist_model> getCREATOR() {
@@ -35,13 +44,15 @@ public class waylist_model implements Parcelable {
 
     protected waylist_model(Parcel in) {
         bus_stop = in.readString();
-        stop_no = in.readInt();
+        stop_no = String.valueOf(in.readInt());
+        busNumber=String.valueOf(in.readInt());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(bus_stop);
-        dest.writeInt(stop_no);
+        dest.writeInt(Integer.parseInt(stop_no));
+        dest.writeInt(Integer.parseInt(busNumber));
     }
 
     @Override

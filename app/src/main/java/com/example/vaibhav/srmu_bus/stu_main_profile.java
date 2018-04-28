@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -55,6 +56,8 @@ public class stu_main_profile extends AppCompatActivity
 
     ArrayList notices = new ArrayList<String>();
     ArrayList noticeLinks = new ArrayList<String>();
+    private Object Window;
+    private ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,7 @@ public class stu_main_profile extends AppCompatActivity
         profile_pic=headerView.findViewById(R.id.profile_pic);
         stuname=headerView.findViewById(R.id.name);
         email=headerView.findViewById(R.id.email);
+        pb=(ProgressBar)findViewById(R.id.pb);
 
         loadUserInformation();
 
@@ -86,6 +90,7 @@ public class stu_main_profile extends AppCompatActivity
         RetrieveNoticesTask task = new RetrieveNoticesTask();
         task.execute();
         //task.onPostExecute();
+
     }
 
     @Override
@@ -261,6 +266,13 @@ public class stu_main_profile extends AppCompatActivity
             return null;
         }
 
+        @Override
+        protected void onPreExecute() {
+            noticeList.setVisibility(View.GONE);
+            pb.setVisibility(View.VISIBLE);
+
+        }
+
         protected void onPostExecute(ArrayList<String> result) {
             // TODO: check this.exception
             // TODO: do something with the feed
@@ -298,6 +310,9 @@ public class stu_main_profile extends AppCompatActivity
                     }
                 }
             });
+
+            pb.setVisibility(View.GONE);
+            noticeList.setVisibility(View.VISIBLE);
 
             //Log.e("async_task", htmlContent);
         }

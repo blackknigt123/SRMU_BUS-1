@@ -50,8 +50,10 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
     int PROXIMITY_RADIUS = 10000;
     public static double latitude;
     public static double longitude;
-    double end_latitude = 26.891716;
-    double end_longitude = 81.073357;
+//    double end_latitude = 26.891716;
+//    double end_longitude = 81.073357;
+    double end_latitude;
+    double end_longitude;
     private LatLng latLng;
     private LatLng latLng_end;
     private StringBuilder googleDirectionsUrl;
@@ -62,8 +64,10 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
     private LatLng latLng_way;
     private String[] stop_name;
     DatabaseReference databaseReference;
-    private String busNo;
+    private String busNo,stopNo;
     private LatLng[] wayPoint;
+    private String stopNumber;
+    private int stopNo_int;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,9 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
         mapFragment.getMapAsync(this);
 
         busNo = getIntent().getStringExtra("busNo");
+        stopNo=getIntent().getStringExtra("busStop");
+        stopNo_int = Integer.parseInt(stopNo);
+        stopNumber = String.valueOf(stopNo_int -1);
         Toast.makeText(this, busNo, Toast.LENGTH_SHORT).show();
         double[] lati = fetching_lat_lan_data();
         Log.e("fine", lati[0] + " " + lati[1]);
@@ -141,7 +148,7 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
         markerOptions.title("Destination");
         markerOptions.icon(BitmapDescriptorFactory
                 .defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
+      //  mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng_end));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
@@ -170,6 +177,10 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Map latlng = (Map) dataSnapshot.child("0").child("latLng").getValue();
+                Map latlng_end=(Map) dataSnapshot.child(stopNumber).child("latLng").getValue();
+
+                end_latitude=(double) latlng_end.get("latitude");
+                end_longitude=(double) latlng_end.get("longitude");
 
                 latitude = (double) latlng.get("latitude");
                 longitude = (double) latlng.get("longitude");
@@ -199,7 +210,9 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
                 }
                 way_point=new StringBuilder("");
                 MarkerOptions markerOptions = new MarkerOptions();
-                for (int i = 1; i <= c - 2; i++) {
+
+
+                for (int i = 1; i <=stopNo_int-2; i++) {    //for (int i = 1; i <= c - 2; i++)
 
                     latLng_way = new LatLng(way_lat[i],way_lon[i]);
                     wayPoint[i]=latLng_way;
@@ -213,7 +226,7 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
 
 
                     way_point.append("via:"+way_lat[i]+","+way_lon[i]+"|");
-                    //  Log.e("wawy_lat1", String.valueOf(way_point));
+                    Log.e("wawy_lat1", String.valueOf(way_point));
 
 
                 }
@@ -238,10 +251,11 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
                 latLng = new LatLng(latitude, longitude);
 
 
+
                 markerOptions.position(latLng);
                 markerOptions.title("Origin Point");
                 markerOptions.icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        .defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 mCurrLocationMarker = mMap.addMarker(markerOptions);
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));

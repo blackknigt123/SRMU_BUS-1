@@ -44,7 +44,7 @@ public class GetDurationsData extends AsyncTask<Object,String,String> {
         duration=directionList.get("duration");
         distance=directionList.get("distance");
 
-        mMap.clear();
+      mMap.clear();
         MarkerOptions markerOptions=new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Duration="+duration);
