@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SRMU_BUS.iml" filepath="$PROJECT_DIR$/SRMU_BUS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SRMU_BUS-1.iml" filepath="$PROJECT_DIR$/SRMU_BUS-1.iml" />
       <module fileurl="file://$PROJECT_DIR$/admin/admin.iml" filepath="$PROJECT_DIR$/admin/admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/driver/driver.iml" filepath="$PROJECT_DIR$/driver/driver.iml" />
