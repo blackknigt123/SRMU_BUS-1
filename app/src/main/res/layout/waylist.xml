@@ -15,7 +15,6 @@
             android:layout_height="56dp"
             android:layout_margin="10dp"
             android:layout_marginStart="24dp"
-            android:alpha=".7"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="15dp"
             app:cardElevation="5dp"
@@ -42,7 +41,7 @@
                     android:gravity="center"
                     android:text="TextView"
                     android:textAlignment="center"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
 
                 <TextView
@@ -53,7 +52,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="37dp"
                     android:text="TextView"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
 
                 <TextView
