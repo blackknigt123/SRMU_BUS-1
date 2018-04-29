@@ -2,6 +2,7 @@ package com.example.vaibhav.srmu_bus;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.vaibhav.srmu_bus.Model.recyclerview_model;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -41,19 +45,56 @@ public class menu3 extends Fragment {
     private double latitude;
     private Double longitude;
     Animation animfadein;
+    private ProgressBar mProgressBar;
+    private TextView LoadComplete;
+
+   // private int ProgressStatus=0;
+   // private Handler handler=new Handler();
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.menu3,container,false);
+        View v = inflater.inflate(R.layout.menu3, container, false);
 
 
 
+        return v;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+      //  mProgressBar = (ProgressBar) getActivity().findViewById(R.id.load);
+        //LoadComplete = (TextView) getActivity().findViewById(R.id.lodingcomplete);
+
+     /*   new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (ProgressStatus < 100) {
+                    ProgressStatus++;
+                    android.os.SystemClock.sleep(50);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgressBar.setProgress(ProgressStatus);
+                        }
+                    });
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoadComplete.setVisibility(View.VISIBLE);
+
+                    }
+                });
+
+            }
+        }).start();*/
+
+
 
         recyleview();
 //        fetching_lat_lan_data();
@@ -80,7 +121,8 @@ public class menu3 extends Fragment {
                     recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-                animfadein= AnimationUtils.loadAnimation(getActivity(),R.anim.bounce);
+                    animfadein= AnimationUtils.loadAnimation(getActivity(),R.anim.bounce);
+
                 recyclerView.setAnimation(animfadein);
 
 
