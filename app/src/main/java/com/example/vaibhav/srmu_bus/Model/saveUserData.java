@@ -1,4 +1,4 @@
-package com.example.vaibhav.srmu_bus;
+package com.example.vaibhav.srmu_bus.Model;
 
 /**
  * Created by Vaibhav on 2/17/2018.

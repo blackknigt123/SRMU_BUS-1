@@ -1,4 +1,4 @@
-package com.example.vaibhav.srmu_bus;
+package com.example.admin.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

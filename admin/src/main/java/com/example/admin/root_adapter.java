@@ -1,5 +1,4 @@
-package com.example.vaibhav.srmu_bus;
-
+package com.example.admin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,58 +9,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.vaibhav.srmu_bus.Model.waylist_model;
+import com.example.admin.model.root_model;
 
 import java.util.List;
 
-public class waylist_adapter extends RecyclerView.Adapter<waylist_adapter.ViewHolder> {
+public class root_adapter extends RecyclerView.Adapter<root_adapter.ViewHolder> {
 
     private Context context;
-    private List<waylist_model> list;
+    private List<root_model> list;
 
-    public waylist_adapter(Context context, List<waylist_model> list) {
+    public root_adapter(Context context, List<root_model> list) {
         this.context = context;
         this.list = list;
     }
 
     @NonNull
     @Override
-    public waylist_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public root_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater= LayoutInflater.from(context);
-        View v= inflater.inflate(R.layout.waylist,parent,false);
+        View v= inflater.inflate(R.layout.root_recycler,parent,false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull waylist_adapter.ViewHolder holder, int position) {
-
-        final waylist_model items= list.get(position);
-
+    public void onBindViewHolder(@NonNull root_adapter.ViewHolder holder, int position) {
+        final root_model items= list.get(position);
         holder.bus_stop.setText(items.getBus_stop());
         holder.stop_no.setText(String.valueOf(items.getStop_no()));
-        holder.busNumber.setText(items.getBusNumber());
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer a= Integer.valueOf(items.getStop_no());
-                if (a==1)
-               {
-
-                   Toast.makeText(context, "This is a Origin", Toast.LENGTH_SHORT).show();
-               }
-               else {
-
-
-                Intent intentExtra = new Intent(context,duration.class);
-                intentExtra.putExtra("busNo",items.getBusNumber());
-                intentExtra.putExtra("busStop",items.getStop_no());
+                Intent intentExtra = new Intent(context,direction.class);
+                intentExtra.putExtra("busNo",items.getBus_stop());
                 context.startActivity(intentExtra);
-                }
             }
         });
-
     }
 
     @Override
@@ -70,18 +53,13 @@ public class waylist_adapter extends RecyclerView.Adapter<waylist_adapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         public TextView bus_stop;
         public TextView stop_no;
-        public TextView busNumber;
         public RelativeLayout relativeLayout;
-
         public ViewHolder(View itemView) {
             super(itemView);
-
             bus_stop=itemView.findViewById(R.id.bus_stop);
             stop_no=itemView.findViewById(R.id.stop_no);
-            busNumber=itemView.findViewById(R.id.busnumber);
             relativeLayout=itemView.findViewById(R.id.relative);
         }
     }

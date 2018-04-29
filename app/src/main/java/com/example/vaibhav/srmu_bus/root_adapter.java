@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.vaibhav.srmu_bus.Model.root_model;
+
 import java.util.List;
 
 public class root_adapter extends RecyclerView.Adapter<root_adapter.ViewHolder> {

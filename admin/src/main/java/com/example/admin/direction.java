@@ -1,18 +1,17 @@
-package com.example.vaibhav.srmu_bus;
+package com.example.admin;
 
 import android.location.Location;
+import android.location.LocationListener;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.vaibhav.srmu_bus.Model.GetDurationsData;
+import com.example.admin.model.GetDirectionsData;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,27 +29,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public class duration extends FragmentActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks,
+public class direction extends FragmentActivity implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
         GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnMarkerDragListener {
+        GoogleMap.OnMarkerDragListener,
+        GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
-    GoogleApiClient mGoogleApiClient;
+    ArrayList<LatLng> listPoints;
+    private String busNo;
+    DatabaseReference databaseReference;
+    private List<Double> lat;
+    private List<Double> lon;
 
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
     int PROXIMITY_RADIUS = 10000;
     public static double latitude;
     public static double longitude;
-//    double end_latitude = 26.891716;
-//    double end_longitude = 81.073357;
-    double end_latitude;
-    double end_longitude;
+    double end_latitude = 26.891716;
+    double end_longitude = 81.073357;
     private LatLng latLng;
     private LatLng latLng_end;
     private StringBuilder googleDirectionsUrl;
@@ -58,56 +63,29 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
     private double[] way_lat;
     private double[] way_lon;
     public int c;
+    private StringBuilder fine_way_point;
+    private StringBuilder way_point1;
     private LatLng latLng_way;
     private String[] stop_name;
-    DatabaseReference databaseReference;
-    private String busNo,stopNo;
-    private LatLng[] wayPoint;
-    private String stopNumber;
-    private int stopNo_int;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_duration);
+        setContentView(R.layout.activity_direction);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-
-
-        //Check if Google Play Services Available or not
-        if (!CheckGooglePlayServices()) {
-            Log.d("onCreate", "Finishing test case since Google Play Services are not available");
-            finish();
-        } else {
-            Log.d("onCreate", "Google Play Services available.");
-        }
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         busNo = getIntent().getStringExtra("busNo");
-        stopNo=getIntent().getStringExtra("busStop");
-        stopNo_int = Integer.parseInt(stopNo);
-        stopNumber = String.valueOf(stopNo_int -1);
         Toast.makeText(this, busNo, Toast.LENGTH_SHORT).show();
         double[] lati = fetching_lat_lan_data();
         Log.e("fine", lati[0] + " " + lati[1]);
 
-    }
 
-    private boolean CheckGooglePlayServices() {
-        GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
-        int result = googleAPI.isGooglePlayServicesAvailable(this);
-        if (result != ConnectionResult.SUCCESS) {
-            if (googleAPI.isUserResolvableError(result)) {
-                googleAPI.getErrorDialog(this, result,
-                        0).show();
-            }
-            return false;
+
         }
-        return true;
-    }
-
 
     /**
      * Manipulates the map once available.
@@ -120,45 +98,36 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        //
 
+        mMap = googleMap;
         boolean success = mMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                         this, R.raw.map_style));
-
-        if (!success) {
-            Log.e("map style", "Style parsing failed.");
-        }
-
-
-
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
-        buildGoogleApiClient();
 
+        buildGoogleApiClient();
 
         latLng_end = new LatLng(end_latitude, end_longitude);
 
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng_end);
-        markerOptions.title("Destination");
+        markerOptions.title("SRMU");
         markerOptions.icon(BitmapDescriptorFactory
-                .defaultMarker(BitmapDescriptorFactory.HUE_RED));
-      //  mCurrLocationMarker = mMap.addMarker(markerOptions);
+                .fromResource(R.drawable.e));
+        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng_end));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
 
-    }
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
+
+
+        }
+
+
+
 
     double[] fetching_lat_lan_data() {
         final int i = 0;
@@ -174,10 +143,6 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Map latlng = (Map) dataSnapshot.child("0").child("latLng").getValue();
-                Map latlng_end=(Map) dataSnapshot.child(stopNumber).child("latLng").getValue();
-
-                end_latitude=(double) latlng_end.get("latitude");
-                end_longitude=(double) latlng_end.get("longitude");
 
                 latitude = (double) latlng.get("latitude");
                 longitude = (double) latlng.get("longitude");
@@ -192,7 +157,6 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
                 way_lat = new double[c];
                 way_lon = new double[c];
                 stop_name = new String[c];
-                wayPoint = new LatLng[c];
 
 
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
@@ -207,56 +171,51 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
                 }
                 way_point=new StringBuilder("");
                 MarkerOptions markerOptions = new MarkerOptions();
-
-
-                for (int i = 1; i <=stopNo_int-2; i++) {    //for (int i = 1; i <= c - 2; i++)
+                for (int i = 1; i <= c - 2; i++) {
 
                     latLng_way = new LatLng(way_lat[i],way_lon[i]);
-                    wayPoint[i]=latLng_way;
-                    Log.e("way pint for leng", String.valueOf(wayPoint[i]));
 
                     markerOptions.position(latLng_way);
                     markerOptions.title(stop_name[i]);
                     markerOptions.icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                            .fromResource(R.drawable.w));
                     mCurrLocationMarker = mMap.addMarker(markerOptions);
 
 
                     way_point.append("via:"+way_lat[i]+","+way_lon[i]+"|");
-                    Log.e("wawy_lat1", String.valueOf(way_point));
+                  //  Log.e("wawy_lat1", String.valueOf(way_point));
 
 
                 }
-                Toast.makeText(duration.this, way_point, Toast.LENGTH_SHORT).show();
+                Toast.makeText(direction.this, way_point, Toast.LENGTH_SHORT).show();
                 Log.e("final trail", String.valueOf(way_point));
 
 
 
 
-                Object dataTransfer[] = new Object[3];
+                Object dataTransfer[] = new Object[2];
                 String url;
 
-                //dataTransfer = new Object[3];
-                url = getDirectionsUrl(position,way_point,wayPoint);
-                GetDurationsData getDurationData = new GetDurationsData();
+                dataTransfer = new Object[3];
+                url = getDirectionsUrl(position,way_point);
+                GetDirectionsData getDirectionsData = new GetDirectionsData();
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
                 dataTransfer[2] = new LatLng(end_latitude, end_longitude);
-                getDurationData.execute(dataTransfer);
+                getDirectionsData.execute(dataTransfer);
 
 
                 latLng = new LatLng(latitude, longitude);
 
 
-
                 markerOptions.position(latLng);
-                markerOptions.title("Origin Point");
+                markerOptions.title(stop_name[0]);
                 markerOptions.icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        .fromResource(R.drawable.s));
                 mCurrLocationMarker = mMap.addMarker(markerOptions);
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
 
 
             }
@@ -268,15 +227,25 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
         });
         return position;
     }
-    private String getDirectionsUrl(double[] liveposition, StringBuilder way_point, LatLng[] wayPoint) {
+
+    protected synchronized void buildGoogleApiClient() {
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+    }
+
+    private String getDirectionsUrl(double[] liveposition,StringBuilder way_point) {
 
 
         Log.e("zxcvbnm", String.valueOf(way_point));
-     //   Log.e("way_point length", wayPoint[2].toString());
 
 
         googleDirectionsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
-        Log.e("data", liveposition[0] + " " + liveposition[0]);
+        Log.e("data", liveposition[0] + " " + liveposition[1]);
         googleDirectionsUrl.append("origin=" + latitude + "," + longitude);
         googleDirectionsUrl.append("&destination=" + end_latitude + "," + end_longitude+"&transit_mode=bus&transit_mode=bus"+"&waypoints=");
         googleDirectionsUrl.append(way_point);
@@ -287,44 +256,70 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
     }
 
 
+
     @Override
-    public void onConnected(@Nullable Bundle bundle) {
+        public void onLocationChanged (Location location){
+
+        }
+
+        @Override
+        public void onStatusChanged (String s,int i, Bundle bundle){
+
+        }
+
+        @Override
+        public void onProviderEnabled (String s){
+
+        }
+
+        @Override
+        public void onProviderDisabled (String s){
+
+        }
+
+        @Override
+        public void onConnected (@Nullable Bundle bundle){
+
+        }
+
+        @Override
+        public void onConnectionSuspended ( int i){
+
+        }
+
+        @Override
+        public void onConnectionFailed (@NonNull ConnectionResult connectionResult){
+
+        }
+
+        @Override
+        public boolean onMarkerClick (Marker marker){
+            return false;
+        }
+
+        @Override
+        public void onMarkerDragStart (Marker marker){
+
+        }
+
+        @Override
+        public void onMarkerDrag (Marker marker){
+
+        }
+
+        @Override
+        public void onMarkerDragEnd (Marker marker){
+
+        }
+
+
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
 
     }
 
-    @Override
-    public void onConnectionSuspended(int i) {
 
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        return false;
-    }
-
-    @Override
-    public void onMarkerDragStart(Marker marker) {
-
-    }
-
-    @Override
-    public void onMarkerDrag(Marker marker) {
-
-    }
-
-    @Override
-    public void onMarkerDragEnd(Marker marker) {
-
-    }
 }
 

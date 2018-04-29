@@ -20,7 +20,7 @@ public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adap
     }
 
     @Override
-    public recyclerview_adapter.AdminViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public AdminViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
 
         LayoutInflater inflater=LayoutInflater.from(context);
         View v= inflater.inflate(R.layout.recycler_view,parent,false);
@@ -28,7 +28,7 @@ public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adap
     }
 
     @Override
-    public void onBindViewHolder(recyclerview_adapter.AdminViewHolder holder, int position) {
+    public void onBindViewHolder(AdminViewHolder holder, int position) {
 
         recyclerview_model items=list.get(position);
 

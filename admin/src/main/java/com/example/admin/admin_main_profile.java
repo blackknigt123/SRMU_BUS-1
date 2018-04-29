@@ -34,6 +34,7 @@ public class admin_main_profile extends AppCompatActivity
 
 
     private add_bus add_bus;
+    private menu4 menu4;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<recyclerview_model> items;
@@ -155,9 +156,16 @@ public class admin_main_profile extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.bus_route) {
 
-        } else if (id == R.id.nav_share) {
+            menu4=new menu4();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.mainLayout, menu4).commit();
+
+
+
+       }
+        else if (id == R.id.nav_share) {
 
         } else if (id == R.id.logout) {
 

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.vaibhav.srmu_bus.Model.GetDirectionsData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -36,7 +37,8 @@ public class direction extends FragmentActivity implements OnMapReadyCallback,Go
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
         GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnMarkerDragListener {
+        GoogleMap.OnMarkerDragListener,
+        GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     ArrayList<LatLng> listPoints;
@@ -112,9 +114,9 @@ public class direction extends FragmentActivity implements OnMapReadyCallback,Go
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng_end);
-        markerOptions.title("Destination");
+        markerOptions.title("SRMU");
         markerOptions.icon(BitmapDescriptorFactory
-                .fromResource(R.drawable.end1));
+                .fromResource(R.drawable.e));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng_end));
@@ -176,7 +178,7 @@ public class direction extends FragmentActivity implements OnMapReadyCallback,Go
                     markerOptions.position(latLng_way);
                     markerOptions.title(stop_name[i]);
                     markerOptions.icon(BitmapDescriptorFactory
-                            .fromResource(R.drawable.way1));
+                            .fromResource(R.drawable.w));
                     mCurrLocationMarker = mMap.addMarker(markerOptions);
 
 
@@ -207,13 +209,13 @@ public class direction extends FragmentActivity implements OnMapReadyCallback,Go
 
 
                 markerOptions.position(latLng);
-                markerOptions.title("Origin Point");
+                markerOptions.title(stop_name[0]);
                 markerOptions.icon(BitmapDescriptorFactory
-                        .fromResource(R.drawable.orig1));
+                        .fromResource(R.drawable.s));
                 mCurrLocationMarker = mMap.addMarker(markerOptions);
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
 
 
             }
@@ -309,5 +311,15 @@ public class direction extends FragmentActivity implements OnMapReadyCallback,Go
         public void onMarkerDragEnd (Marker marker){
 
         }
+
+
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+
     }
+
+
+}
 

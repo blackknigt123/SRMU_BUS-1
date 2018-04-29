@@ -1,11 +1,11 @@
-package com.example.vaibhav.srmu_bus;
+package com.example.vaibhav.srmu_bus.Model;
 
 import android.os.AsyncTask;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -49,6 +49,10 @@ public class GetDurationsData extends AsyncTask<Object,String,String> {
         markerOptions.position(latLng);
         markerOptions.title("Duration="+duration);
         markerOptions.snippet("Distance="+distance);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
 
         mMap.addMarker(markerOptions);
 

@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vaibhav.srmu_bus.Model.recyclerview_model;
+
 import java.util.List;
 
 public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adapter.AdminViewHolder> {
