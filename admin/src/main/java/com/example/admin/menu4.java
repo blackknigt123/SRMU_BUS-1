@@ -85,7 +85,7 @@ public class menu4 extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                    items = new ArrayList<>();
-                    recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv);
+                    recyclerView = (RecyclerView) getActivity().findViewById(R.id.rv1);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
 
