@@ -1,5 +1,6 @@
 package com.example.vaibhav.srmu_bus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,9 @@ public class feedback extends Fragment{
     TextView name,email;
     EditText fed;
     Button save_btn;
+    private String fedback;
+    ProgressBar pb;
+
 
     @Nullable
     @Override
@@ -43,6 +48,8 @@ public class feedback extends Fragment{
         return inflater.inflate(R.layout.feedback,container,false);
 
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -53,6 +60,8 @@ public class feedback extends Fragment{
         name=getActivity().findViewById(R.id.email);
         email=getActivity().findViewById(R.id.name);
         fed=getActivity().findViewById(R.id.feedback_text);
+        pb=getActivity().findViewById(R.id.pb);
+
 
        // save_btn=getActivity().
         loadUserInformation();
@@ -62,7 +71,8 @@ public class feedback extends Fragment{
         getActivity().findViewById(R.id.feedback_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  save_fed();
+                save_fed();
+               // Toast.makeText(getContext(),fed.getText() , Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -96,20 +106,43 @@ public class feedback extends Fragment{
 
     private void save_fed()
     {
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String fedback=fed.getText().toString();
-        Log.e("fedback", String.valueOf(fed));
-
+        pb.setVisibility(View.VISIBLE);
 
         databaseReference=FirebaseDatabase.getInstance().getReference("Feedback");
 
-        databaseReference.child(user.getEmail()).setValue(fedback).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(getActivity(), "added fedback", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(),fed.getText() , Toast.LENGTH_SHORT).show();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        fedback = fed.getText().toString().trim();
+        String nm=name.getText().toString();
+        String em=email.getText().toString();
+   //
+        //   databaseReference.child(user.getUid()).setValue(fedback);
+
+        Log.e("fedback", String.valueOf(fed));
+
+        if (fedback.isEmpty())
+        {
+            Toast.makeText(getContext(), "Enter Your Feedback", Toast.LENGTH_SHORT).show();
+
             }
-        });
+        else {
+            saveFeedback saveFeedback = new saveFeedback(fedback,nm,em);
+            databaseReference.child(user.getUid()).setValue(saveFeedback).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    pb.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), "Thank you. Your feedback is gold.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(),stu_main_profile.class));
+                }
+            });
+
+        }
+
 
     }
 
+
+
 }
+

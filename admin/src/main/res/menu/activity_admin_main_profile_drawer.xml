@@ -13,21 +13,17 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Add Bus" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/bus_details"
+            android:icon="@drawable/bus_tag"
+            android:title="Bus Details" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/bus_route"
+            android:icon="@drawable/bus_route"
+            android:title="Bus Route" />
     </group>
 
     <item android:title="Communicate">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
             <item
                 android:id="@+id/logout"
                 android:icon="@drawable/ic_menu_send"

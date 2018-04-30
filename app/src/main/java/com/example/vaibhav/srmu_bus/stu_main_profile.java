@@ -4,9 +4,13 @@ package com.example.vaibhav.srmu_bus;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -22,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,6 +47,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -273,6 +279,8 @@ public class stu_main_profile extends AppCompatActivity
 
         }
 
+
+
         protected void onPostExecute(ArrayList<String> result) {
             // TODO: check this.exception
             // TODO: do something with the feed
@@ -281,7 +289,26 @@ public class stu_main_profile extends AppCompatActivity
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(stu_main_profile.this,
                     android.R.layout.simple_list_item_1,
                     result
-            );
+
+            )
+            {
+                @NonNull
+                @Override
+                public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                    View view= super.getView(position, convertView, parent);
+
+                    TextView textView=(TextView) view.findViewById(android.R.id.text1);
+
+                    /*YOUR CHOICE OF COLOR*/
+                    String col="#FFFFFFFF";
+                    textView.setTextColor(Color.parseColor(col));
+                    textView.setTypeface(null, Typeface.ITALIC);
+
+                    return view;
+                }
+            };
+
+
 
             noticeList.setAdapter(adapter);
             noticeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

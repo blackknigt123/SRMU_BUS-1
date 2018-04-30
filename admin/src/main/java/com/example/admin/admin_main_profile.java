@@ -10,23 +10,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.admin.model.recyclerview_model;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class admin_main_profile extends AppCompatActivity
@@ -34,6 +27,8 @@ public class admin_main_profile extends AppCompatActivity
 
 
     private add_bus add_bus;
+    private menu4 menu4;
+    private menu3 menu3;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<recyclerview_model> items;
@@ -60,39 +55,39 @@ public class admin_main_profile extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("Bus Details");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                items= new ArrayList<>();
-                recyclerView =(RecyclerView)findViewById(R.id.rv);
-                recyclerView.setLayoutManager(new LinearLayoutManager(admin_main_profile.this));
-                recyclerView.addItemDecoration(new DividerItemDecoration(admin_main_profile.this,LinearLayoutManager.VERTICAL));
-
-                for (DataSnapshot snap:dataSnapshot.getChildren())
-                {
-                    recyclerview_model model = new recyclerview_model(
-                            "bus Number"+(snap.getKey()),
-                            "startpoint",
-                            "current stop",
-                            "nextstop",
-                            12);
-                    items.add(model);
-
-                }
-
-                adapter= (RecyclerView.Adapter)new recyclerview_adapter(admin_main_profile.this,items);
-                recyclerView.setAdapter(adapter);
-
-            }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+//        databaseReference= FirebaseDatabase.getInstance().getReference("Bus Details");
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                items= new ArrayList<>();
+//                recyclerView =(RecyclerView)findViewById(R.id.rv);
+//                recyclerView.setLayoutManager(new LinearLayoutManager(admin_main_profile.this));
+//                recyclerView.addItemDecoration(new DividerItemDecoration(admin_main_profile.this,LinearLayoutManager.VERTICAL));
+//
+//                for (DataSnapshot snap:dataSnapshot.getChildren())
+//                {
+//                    recyclerview_model model = new recyclerview_model(
+//                            "bus Number"+(snap.getKey()),
+//                            "startpoint",
+//                            "current stop",
+//                            "nextstop",
+//                            12);
+//                    items.add(model);
+//
+//                }
+//
+//                adapter= (RecyclerView.Adapter)new recyclerview_adapter(admin_main_profile.this,items);
+//                recyclerView.setAdapter(adapter);
+//
+//            }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
 
 
 
@@ -153,13 +148,25 @@ public class admin_main_profile extends AppCompatActivity
             manager.beginTransaction().replace(R.id.mainLayout, add_bus).commit();
 
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.bus_details) {
 
-        } else if (id == R.id.nav_manage) {
+            menu3 =new menu3();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.mainLayout, menu3).commit();
 
-        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.logout) {
+        } else if (id == R.id.bus_route) {
+
+            menu4=new menu4();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.mainLayout, menu4).commit();
+
+
+
+       }
+
+
+        else if (id == R.id.logout) {
 
             final Intent moveToLogin = new Intent(this, admin_login.class);
 

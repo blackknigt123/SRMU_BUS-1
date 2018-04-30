@@ -1,17 +1,14 @@
 package com.example.vaibhav.srmu_bus;
 
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.location.Location;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.vaibhav.srmu_bus.Model.GetDurationsData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -151,7 +148,7 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
       //  mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng_end));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
     }
     protected synchronized void buildGoogleApiClient() {
@@ -275,11 +272,11 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
 
 
         Log.e("zxcvbnm", String.valueOf(way_point));
-        Log.e("way_point length", wayPoint[2].toString());
+     //   Log.e("way_point length", wayPoint[2].toString());
 
 
         googleDirectionsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
-        Log.e("data", liveposition[0] + " " + liveposition[1]);
+        Log.e("data", liveposition[0] + " " + liveposition[0]);
         googleDirectionsUrl.append("origin=" + latitude + "," + longitude);
         googleDirectionsUrl.append("&destination=" + end_latitude + "," + end_longitude+"&transit_mode=bus&transit_mode=bus"+"&waypoints=");
         googleDirectionsUrl.append(way_point);

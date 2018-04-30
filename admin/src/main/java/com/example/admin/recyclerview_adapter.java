@@ -1,11 +1,17 @@
 package com.example.admin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.admin.model.recyclerview_model;
 
 import java.util.List;
 
@@ -30,13 +36,25 @@ public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adap
     @Override
     public void onBindViewHolder(recyclerview_adapter.AdminViewHolder holder, int position) {
 
-        recyclerview_model items=list.get(position);
+        final recyclerview_model items=list.get(position);
 
         holder.bus_no.setText(items.getBus_no());
         holder.startpoint_details.setText(items.getStartpoint_details());
-        holder.current_details.setText(items.getCurrent_details());
-        holder.nextstop_details.setText(items.getNextstop_details());
-        holder.nextstoptime_detail.setText(String.valueOf(items.getNextstop_details()));
+        holder.imageView.setImageDrawable(context.getResources().getDrawable(items.getImageView()));
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "You clicked", Toast.LENGTH_SHORT).show();
+
+
+                Intent intentExtra = new Intent(context,way_point_list.class);
+                intentExtra.putExtra("busNo",items.getBus_no());
+                context.startActivity(intentExtra);
+
+
+            }
+        });
 
     }
 
@@ -45,17 +63,21 @@ public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adap
         return list.size();
     }
 
+
+
+
     public class AdminViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView bus_no,startpoint_details,current_details,nextstop_details,nextstoptime_detail;
+        public TextView bus_no,startpoint_details;
+        public ImageView imageView;
+        public RelativeLayout relativeLayout;
         public AdminViewHolder(View itemView) {
             super(itemView);
 
             bus_no=itemView.findViewById(R.id.bus_no);
             startpoint_details=itemView.findViewById(R.id.startpoint_details);
-            current_details=itemView.findViewById(R.id.current_details);
-            nextstop_details=itemView.findViewById(R.id.nextstop_details);
-            nextstoptime_detail=itemView.findViewById(R.id.nextstoptime_detail);
+            relativeLayout=(RelativeLayout)itemView.findViewById(R.id.relativeLayout);
+            imageView=(ImageView)itemView.findViewById(R.id.imageView);
         }
     }
 }
