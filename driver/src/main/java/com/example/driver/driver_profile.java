@@ -47,7 +47,8 @@ public class driver_profile extends AppCompatActivity {
         showlocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gps = new gps_tracker(driver_profile.this);
+
+               gps = new gps_tracker(driver_profile.this);
                 location=(TextView) findViewById(R.id.t1);
                 if (gps.canGetLocation())
                 {
