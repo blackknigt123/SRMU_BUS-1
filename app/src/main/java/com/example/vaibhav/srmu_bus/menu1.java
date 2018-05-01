@@ -57,7 +57,7 @@ public class menu1 extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Menu1");
+        getActivity().setTitle("My Profile");
 
 
         profilePic=getActivity().findViewById(R.id.profile_pic);

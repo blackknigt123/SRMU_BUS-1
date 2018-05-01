@@ -13,6 +13,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class driver_login extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,7 +39,6 @@ public class driver_login extends AppCompatActivity implements View.OnClickListe
         driver_password = findViewById(R.id.driver_paswrd);
 
         findViewById(R.id.driver_login).setOnClickListener(this);
-        findViewById(R.id.b1).setOnClickListener(this);
         findViewById(R.id.driver_reg).setOnClickListener(this);
 
     }
@@ -100,13 +104,58 @@ public class driver_login extends AppCompatActivity implements View.OnClickListe
         switch (view.getId())
         {
             case R.id.driver_login:
-                userLogin();
+               // userLogin();
+                login();
                 break;
-            case R.id.b1:
-                startActivity(new Intent(this,driver_profile.class));
-                break;
+
             case R.id.driver_reg:
                 startActivity(new Intent(this,driver_reg.class));
+        }
+    }
+
+    private void login() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        final String emailId=driver_username.getText().toString().trim();
+        final String paswrd=driver_password.getText().toString();
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference dbref = (DatabaseReference) database.getReference("Driver").child(emailId);
+
+        if (dbref!=null)
+        {
+            dbref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String ps=dataSnapshot.child("Paswrd").getValue(String.class);
+
+                    if (paswrd .equals(ps))
+                    {
+                        progressBar.setVisibility(View.GONE);
+
+                        Intent intentExtra = new Intent(driver_login.this,driver_profile.class);
+                        intentExtra.putExtra("busNo",emailId);
+                        driver_login.this.startActivity(intentExtra);
+                        //Intent intent = new Intent(getApplicationContext(),driver_profile.class);
+                        //clear all the previous thing if user click back button then come to login screan which is dont want by us
+                     //   intentExtra.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //startActivity(intent);
+
+                    }
+                    else {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(driver_login.this, "Wrong Pasword", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else {
+            Toast.makeText(this, "You are not registerd", Toast.LENGTH_SHORT).show();
         }
     }
 }

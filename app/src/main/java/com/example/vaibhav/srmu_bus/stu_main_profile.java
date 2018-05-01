@@ -71,12 +71,14 @@ public class stu_main_profile extends AppCompatActivity
         setContentView(R.layout.activity_stu_main_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("SRMU");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -141,6 +143,11 @@ public class stu_main_profile extends AppCompatActivity
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if (id==R.id.home)
+        {
+            startActivity(new Intent(this,stu_main_profile.class));
+        }
 
         if (id == R.id.menu1) {
             // Handle the camera action

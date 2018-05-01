@@ -48,7 +48,7 @@ public class menu2 extends Fragment {
             }
         });
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference dbref=database.getReference("Location");
+        DatabaseReference dbref=database.getReference("Bus_Location").child("12").child("location");
 
         dbref.addValueEventListener(new ValueEventListener() {
             @Override

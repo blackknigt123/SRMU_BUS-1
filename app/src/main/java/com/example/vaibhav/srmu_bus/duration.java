@@ -89,7 +89,7 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
         stopNo=getIntent().getStringExtra("busStop");
         stopNo_int = Integer.parseInt(stopNo);
         stopNumber = String.valueOf(stopNo_int -1);
-        Toast.makeText(this, busNo, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(this, busNo, Toast.LENGTH_SHORT).show();
         double[] lati = fetching_lat_lan_data();
         Log.e("fine", lati[0] + " " + lati[1]);
 
@@ -227,7 +227,7 @@ public class duration extends FragmentActivity implements OnMapReadyCallback,
 
 
                 }
-                Toast.makeText(duration.this, way_point, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(duration.this, way_point, Toast.LENGTH_SHORT).show();
                 Log.e("final trail", String.valueOf(way_point));
 
 

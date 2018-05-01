@@ -45,7 +45,7 @@ public class recyclerview_adapter extends RecyclerView.Adapter<recyclerview_adap
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "You clicked", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, "You clicked", Toast.LENGTH_SHORT).show();
 
 
                 Intent intentExtra = new Intent(context,way_point_list.class);

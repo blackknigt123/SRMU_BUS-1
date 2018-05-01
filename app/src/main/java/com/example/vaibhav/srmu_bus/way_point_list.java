@@ -41,6 +41,7 @@ public class way_point_list extends AppCompatActivity {
 
         b_no=(TextView) findViewById(R.id.bus_no);
         b_no.setText(busNo);
+        setTitle("SRMU");
 
         fetch_stop();
 

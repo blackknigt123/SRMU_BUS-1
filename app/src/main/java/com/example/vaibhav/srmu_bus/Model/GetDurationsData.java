@@ -2,8 +2,10 @@ package com.example.vaibhav.srmu_bus.Model;
 
 import android.os.AsyncTask;
 
+import com.example.vaibhav.srmu_bus.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -46,6 +48,7 @@ public class GetDurationsData extends AsyncTask<Object,String,String> {
 
       mMap.clear();
         MarkerOptions markerOptions=new MarkerOptions();
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.wp));
         markerOptions.position(latLng);
         markerOptions.title("Duration="+duration);
         markerOptions.snippet("Distance="+distance);

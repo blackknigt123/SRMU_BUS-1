@@ -44,7 +44,7 @@ public class gps_tracker extends Service implements LocationListener {
     {
         this.mConext=context;
         getLocation();
-        stopUsingGPS();
+        //stopUsingGPS();
     }
 
     public Location getLocation() {
@@ -192,6 +192,8 @@ public class gps_tracker extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+
+        getLocation();
 
     }
 
