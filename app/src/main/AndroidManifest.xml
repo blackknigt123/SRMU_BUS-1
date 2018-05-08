@@ -21,7 +21,7 @@
         <activity
             android:name=".stu_home"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".stu_reg"
             android:screenOrientation="portrait"

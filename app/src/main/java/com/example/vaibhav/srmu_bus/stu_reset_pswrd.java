@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +20,7 @@ public class stu_reset_pswrd extends AppCompatActivity {
     
     FirebaseAuth mAuth;
     EditText email;
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class stu_reset_pswrd extends AppCompatActivity {
 
         email = (EditText) findViewById(R.id.stu_emailBox_reset);
         Button btnResetPassword = (Button) findViewById(R.id.stu_reset_pswrd);
+        pb=findViewById(R.id.pb);
 
         
         mAuth = FirebaseAuth.getInstance();
@@ -42,6 +45,7 @@ public class stu_reset_pswrd extends AppCompatActivity {
                     Toast.makeText(stu_reset_pswrd.this, "Enter Your email!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                pb.setVisibility(View.VISIBLE);
                 
                 mAuth.sendPasswordResetEmail(emailBox).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -49,6 +53,7 @@ public class stu_reset_pswrd extends AppCompatActivity {
                         
                         if (task.isSuccessful())
                         {
+                            pb.setVisibility(View.GONE);
                             Toast.makeText(stu_reset_pswrd.this, "Check email to reset your password", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(stu_reset_pswrd.this,stu_home.class));
 
@@ -56,6 +61,7 @@ public class stu_reset_pswrd extends AppCompatActivity {
 
                         else
                         {
+                            pb.setVisibility(View.GONE);
                             Toast.makeText(stu_reset_pswrd.this, "Fail to send reset password email", Toast.LENGTH_SHORT).show();
 
                         }

@@ -174,7 +174,7 @@
             android:background="@drawable/stroke"
             android:ems="10"
             android:gravity="center"
-            android:hint="Enter Your Roll No"
+            android:hint="Enter Your Unique ID"
             android:inputType="number"
             android:padding="5dp"
             android:textAlignment="viewStart"

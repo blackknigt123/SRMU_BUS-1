@@ -67,33 +67,6 @@ public class menu3 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-      //  mProgressBar = (ProgressBar) getActivity().findViewById(R.id.load);
-        //LoadComplete = (TextView) getActivity().findViewById(R.id.lodingcomplete);
-
-     /*   new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (ProgressStatus < 100) {
-                    ProgressStatus++;
-                    android.os.SystemClock.sleep(50);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgressBar.setProgress(ProgressStatus);
-                        }
-                    });
-                }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        LoadComplete.setVisibility(View.VISIBLE);
-
-                    }
-                });
-
-            }
-        }).start();*/
-
 
 
         recyleview();
