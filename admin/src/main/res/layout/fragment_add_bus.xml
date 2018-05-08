@@ -11,22 +11,24 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout3"
-        android:layout_width="400dp"
+        android:layout_width="377dp"
         android:layout_height="287dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.436">
 
         <EditText
             android:id="@+id/bus_password"
-            android:layout_width="342dp"
-            android:layout_height="50dp"
+            android:layout_width="268dp"
+            android:layout_height="37dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="82dp"
+            android:layout_marginBottom="85dp"
             android:background="@drawable/stroke"
             android:ems="10"
             android:gravity="center"
@@ -43,11 +45,11 @@
 
         <EditText
             android:id="@+id/bus_number"
-            android:layout_width="342dp"
-            android:layout_height="50dp"
+            android:layout_width="263dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="88dp"
             android:background="@drawable/stroke"
             android:ems="10"
             android:gravity="center"
@@ -93,12 +95,11 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="124dp"
             android:text="Bus Details"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
@@ -134,7 +135,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_log_signup"
         android:text="Create Bus"
@@ -142,6 +143,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
+        app:layout_constraintVertical_bias="0.369" />
 
 </android.support.constraint.ConstraintLayout>
