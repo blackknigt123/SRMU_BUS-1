@@ -27,8 +27,11 @@ Geolocation API
 Geocoding API
 
 # The project is divided into 3 modules: - 
+
 1)driver module 
+
 2)client module
+
 3)admin module
 
 Driver module: The authorized bus drivers are provided with their unique log in credentials. They need to log in and then have to start their location service before driving. The current location of the bus will be updated from driver’s mobile to the server every moment in the form of latitude and longitude.
