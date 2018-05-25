@@ -1,8 +1,8 @@
-"# SRMU_BUS" 
+# SRMU_BUS 
 
 The project is based on geolocation, in which a vehicle’s live location is shared to multiple users,the project will be made using android studio (version 3.0.1 latest) along with google Firebase and google API’s (Application Program Interface).
 
-#Main highlights: -
+# Main highlights: -
 
 “Bus Tracking Application” is an application for Smart phones that works on Android Operating system.
 This application uses the GPS for tracking the bus.
@@ -18,7 +18,7 @@ It provides real time bus information so the students may prepare accordingly
 Also provide integrated google map
 Firebase: - firebase is mobile and web application development platform developed by Firebase, Inc. in 2011, then acquired by google in 2014. (for further details https://en.wikipedia.org/wiki/Firebase). The firebase will contain all the records of student, admin, driver and will also authenticate them during login.
 
-#API’s used for tracking: -
+# API’s used for tracking: -
 
 Map API
 Distance Matrix API
@@ -26,7 +26,7 @@ Directions API
 Geolocation API
 Geocoding API
 
-#The project is divided into 3 modules: - 
+# The project is divided into 3 modules: - 
 1)driver module 
 2)client module
 3)admin module
